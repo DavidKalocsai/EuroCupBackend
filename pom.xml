@@ -5,12 +5,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.example</groupId>
-	<artifactId>easy-notes</artifactId>
+	<artifactId>voucher-backend</artifactId>
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
 	<name>easy-notes</name>
-	<description>Rest API for a Simple Note Taking Application</description>
+	<description>Euro Cup Voucher Draw App Backend</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
