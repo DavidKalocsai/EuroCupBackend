@@ -1,4 +1,4 @@
-package com.intland.eurocup.jms;
+package com.intland.eurocup.jms.backend;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
