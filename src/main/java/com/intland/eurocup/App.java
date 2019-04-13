@@ -8,9 +8,8 @@ import org.springframework.jms.annotation.EnableJms;
 @SpringBootApplication
 @EnableJpaAuditing
 @EnableJms
-public class VoucherBackendApp {
-
+public class App {
 	public static void main(String[] args) {
-		SpringApplication.run(VoucherBackendApp.class, args);
+		SpringApplication.run(App.class, args);
 	}
 }

@@ -6,7 +6,9 @@ import org.springframework.stereotype.Component;
 
 import com.intland.eurocup.common.jms.model.BackendJmsMesage;
 import com.intland.eurocup.common.jms.model.FrontendJmsMessage;
-import com.intland.eurocup.common.model.result.DrawResult;
+import com.intland.eurocup.common.model.DrawResult;
+import com.intland.eurocup.model.Voucher;
+import com.intland.eurocup.service.VoucherService;
 
 @Component
 public class JmsReceiver {
@@ -14,18 +16,31 @@ public class JmsReceiver {
 	@Autowired
 	private JmsSender sender;
 	
+	@Autowired
+	private VoucherService voucherService;
+	
 	@JmsListener(destination = "${jms.queue.from.ui.name}")
-    public void receiveMessage(final FrontendJmsMessage voucher) {
-        System.out.println("Received from UI <" + voucher + ">");
-        sender.send(convert(voucher));
+    public void receiveMessage(final FrontendJmsMessage jmsMessage) {
+        System.out.println("Received from UI <" + jmsMessage + ">");
+        final Voucher voucher = voucherService.save(convert(jmsMessage));
+        sender.send(convert(jmsMessage.getRequestId(), voucher));
     }
 	
-	private BackendJmsMesage convert(final FrontendJmsMessage voucherFromUi) {
+	private Voucher convert(final FrontendJmsMessage jmsMessage) {
+		final Voucher voucher = new Voucher();
+		voucher.setEmail(jmsMessage.getEmail());
+		voucher.setVoucher(jmsMessage.getVoucher());
+		voucher.setTerritory(jmsMessage.getTerritory());
+		return voucher;
+	}
+	
+	private BackendJmsMesage convert(final Long requestId, final Voucher voucher) {
 		final BackendJmsMesage voucherBackendDTO = new BackendJmsMesage();
-		voucherBackendDTO.setVoucher(voucherFromUi.getVoucher());
-		voucherBackendDTO.setEmail(voucherFromUi.getEmail());
-		voucherBackendDTO.setTerritory(voucherFromUi.getTerritory());
-		voucherBackendDTO.setDrawStatus(DrawResult.WINNER);
+		voucherBackendDTO.setRequestId(requestId);
+		voucherBackendDTO.setVoucher(voucher.getVoucher());
+		voucherBackendDTO.setEmail(voucher.getEmail());
+		voucherBackendDTO.setDrawResult(DrawResult.WINNER);
+		System.out.println("Sending back to UI <" + voucher + ">");
 		return voucherBackendDTO;
 	}
 }
