@@ -5,11 +5,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
-import com.intland.eurocup.jms.model.VoucherToUi;
-import com.intland.eurocup.model.Voucher;
+import com.intland.eurocup.common.jms.model.BackendJmsMesage;
 
 @Service
-public class VoucherJmsSender {
+public class JmsSender {
 	
 	@Value("${jms.queue.to.ui.name}")
 	private String queueName;
@@ -17,7 +16,7 @@ public class VoucherJmsSender {
 	@Autowired
 	private JmsTemplate jmsTemplate;
 	
-	public void send(final VoucherToUi voucher) {
+	public void send(final BackendJmsMesage voucher) {
     	jmsTemplate.convertAndSend(queueName, voucher);
 	}
 }
