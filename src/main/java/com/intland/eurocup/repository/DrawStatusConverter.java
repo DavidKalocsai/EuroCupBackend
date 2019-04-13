@@ -1,9 +1,9 @@
-package com.example.easynotes.repository;
+package com.intland.eurocup.repository;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
-import com.example.easynotes.model.DrawStatus;
+import com.intland.eurocup.model.DrawStatus;
 
 @Converter(autoApply = true)
 public class DrawStatusConverter implements AttributeConverter<DrawStatus, String> {

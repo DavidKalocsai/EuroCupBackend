@@ -1,8 +1,9 @@
-package com.example.easynotes.repository;
+package com.intland.eurocup.repository;
 
-import com.example.easynotes.model.Voucher;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import com.intland.eurocup.model.Voucher;
 
 /**
  * Created by rajeevkumarsingh on 27/06/17.

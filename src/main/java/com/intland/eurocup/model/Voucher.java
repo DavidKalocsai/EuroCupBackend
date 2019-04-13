@@ -1,4 +1,4 @@
-package com.example.easynotes.model;
+package com.intland.eurocup.model;
 
 import java.util.Date;
 

@@ -1,4 +1,4 @@
-package com.example.easynotes.model;
+package com.intland.eurocup.model;
 
 import com.google.common.base.MoreObjects;
 import lombok.Getter;

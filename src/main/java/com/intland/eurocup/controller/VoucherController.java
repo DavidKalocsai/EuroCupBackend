@@ -1,4 +1,4 @@
-package com.example.easynotes.controller;
+package com.intland.eurocup.controller;
 
 import java.util.List;
 
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.easynotes.exception.ResourceNotFoundException;
-import com.example.easynotes.model.Voucher;
-import com.example.easynotes.repository.VoucherRepository;
+import com.intland.eurocup.exception.ResourceNotFoundException;
+import com.intland.eurocup.model.Voucher;
+import com.intland.eurocup.repository.VoucherRepository;
 
 /**
  * Voucher Controller.
