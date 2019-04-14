@@ -6,7 +6,10 @@ import com.intland.eurocup.model.LotStatus;
 import com.intland.eurocup.model.Voucher;
 import com.intland.eurocup.repository.VoucherRepository;
 
-public class DrawStrategyGermany {
+/**
+ * Draw strategy for Germany.
+ */
+public class DrawStrategyGermany implements DrawStrategy {
 	private static final int NUMBER_OF_BALLS = 25;
 	private static final int DAILY_LIMIT = 4;
 	private static final Long WINNER_MODULO_NUMBER = 40L; // TODO - modulo would work just fine
@@ -14,6 +17,7 @@ public class DrawStrategyGermany {
 	@Autowired
 	private VoucherRepository voucherRepository;
 	
+	@Override
 	public void draw(final Voucher voucher) {
 		if (voucher != null && voucherNotYetDrawn(voucher)) {
 			if (allTimeLimitNotReached(voucher) && dailyLimitNotReached(voucher)) {
