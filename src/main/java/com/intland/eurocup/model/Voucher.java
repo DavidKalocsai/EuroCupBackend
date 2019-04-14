@@ -26,7 +26,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * Entity of voucher table.
+ * Voucher entity.
  */
 @Entity
 @Table(name = "voucher")
@@ -40,7 +40,7 @@ public class Voucher {
 
     @NotBlank
     @Column(unique = true)
-    private String voucher;
+    private String code;
 
     @NotBlank
     @Column(unique = true)

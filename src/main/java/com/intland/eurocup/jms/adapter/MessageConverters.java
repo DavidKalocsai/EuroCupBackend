@@ -6,29 +6,30 @@ import com.intland.eurocup.common.model.LotResult;
 import com.intland.eurocup.model.LotStatus;
 import com.intland.eurocup.model.Voucher;
 
-public class MessageConverters {
-	
-	public Voucher convert(final MessageFromFrontend jmsMessage) {
-		final Voucher voucher = new Voucher();
-		voucher.setEmail(jmsMessage.getEmail());
-		voucher.setVoucher(jmsMessage.getVoucher());
-		voucher.setTerritory(jmsMessage.getTerritory());
-		return voucher;
-	}
-	
-	public MessageFromBackend convert(final Long requestId, final LotResult lotResult) {
-		final MessageFromBackend backendMessage = new MessageFromBackend();
-		backendMessage.setRequestId(requestId);
-		backendMessage.setLotResult(lotResult);
-		System.out.println("Sending back to UI <" + backendMessage + ">");
-		return backendMessage;
-	}
-	
-	public LotResult convert(final LotStatus lotStatus) {
-		LotResult lotResult = LotResult.ERROR;
-		if (lotStatus != LotStatus.NO_DRAW) {
-			lotResult = lotStatus == LotStatus.WINNER ? LotResult.WINNER : LotResult.LOSER; 
-		}
-		return lotResult;		
-	}
+/**
+ * Converters to convert between data used by back end and JMS.
+ */
+public interface MessageConverters {
+
+	/**
+	 * Convert incoming message to voucher.
+	 * @param message {@link MessageFromFrontend}
+	 * @return {@link Voucher}
+	 */
+	Voucher convert(MessageFromFrontend message);
+
+	/**
+	 * Convert result of voucher redeem to outgoing message.
+	 * @param requestId - id to identify request.
+	 * @param lotResult - {@link LotResult}.
+	 * @return {@link MessageFromBackend}s
+	 */
+	MessageFromBackend convert(Long requestId, LotResult lotResult);
+
+	/**
+	 * Convert result of voucher redeem from back end model to common model. 
+	 * @param lotStatus {@link LotStatus}
+	 * @return {@link LotResult}
+	 */
+	LotResult convert(LotStatus lotStatus);
 }

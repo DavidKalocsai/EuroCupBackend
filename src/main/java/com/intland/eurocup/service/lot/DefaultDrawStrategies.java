@@ -5,16 +5,23 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.intland.eurocup.model.Territory;
+import com.intland.eurocup.common.model.Territory;
 import com.intland.eurocup.model.Voucher;
 import com.intland.eurocup.service.lot.exception.UnsupportedTerritoryException;
 import com.intland.eurocup.service.lot.strategy.DrawStrategy;
 
-public class DrawStrategiesImpl implements DrawStrategies {
+/*
+ * It is used to access all implemented Draw Strategy.
+ */
+public class DefaultDrawStrategies implements DrawStrategies {
 	final Map<Territory, DrawStrategy> drawStrategies = new HashMap<>();
 	
+	/**
+	 * Constructor collects all implementations of DrawStrategy.
+	 * @param foundDrawStrategies list of {@link DrawStrategy}
+	 */
 	@Autowired
-	public DrawStrategiesImpl(final DrawStrategy... foundDrawStrategies) {
+	public DefaultDrawStrategies(final DrawStrategy... foundDrawStrategies) {
 		if (foundDrawStrategies != null) {
 			for (final DrawStrategy drawStrategy : foundDrawStrategies) {
 				this.drawStrategies.put(drawStrategy.getType(), drawStrategy);
@@ -22,6 +29,7 @@ public class DrawStrategiesImpl implements DrawStrategies {
 		}
 	}
 	
+	@Override
 	public void draw(Voucher voucher) {
 		final DrawStrategy drawStrategy = drawStrategies.get(voucher.getTerritory());
 		validateStrategy(drawStrategy);
@@ -34,6 +42,7 @@ public class DrawStrategiesImpl implements DrawStrategies {
 		}
 	}
 	
+	@Override
 	public boolean isStrategyExist(final Territory territory) {
 		return drawStrategies.containsKey(territory);
 	}

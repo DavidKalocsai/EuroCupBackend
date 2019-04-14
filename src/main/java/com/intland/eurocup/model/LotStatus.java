@@ -5,8 +5,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
- * Status of an order. It can be active, or deleted. On delete order is only set to deleted, but not
- * removed.
+ * Status of voucher: lot not yet happened, winner, loser.
  */
 @Getter
 @AllArgsConstructor
