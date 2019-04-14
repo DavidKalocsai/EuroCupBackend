@@ -19,6 +19,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.intland.eurocup.common.model.Territory;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -46,13 +47,15 @@ public class Voucher {
     private String email;
     
     @NotBlank
-    private String territory;
+    @Enumerated(EnumType.STRING)
+    private Territory territory;
     
     @Column(name = "created", nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
     private Date createdAt;
     
-    @Column(name = "draw_status", nullable = false)
-    private DrawStatus drawStatus;
+    @Column(name = "lot_status", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private LotStatus lotStatus;
 }

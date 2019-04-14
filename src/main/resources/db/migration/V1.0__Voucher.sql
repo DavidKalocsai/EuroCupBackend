@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS euro_cup.voucher (
     email VARCHAR(100) NOT NULL,
     territory VARCHAR(10) NOT NULL,
     created DATE NOT NULL,
-    draw_status VARCHAR(10) DEFAULT 'nodraw',    
+    lot_status VARCHAR(10) DEFAULT 'NotDrawn',    
     PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
