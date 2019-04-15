@@ -13,6 +13,7 @@ import com.intland.eurocup.model.Voucher;
 import com.intland.eurocup.repository.VoucherRepository;
 import com.intland.eurocup.service.lot.LotService;
 import com.intland.eurocup.service.persist.PersistentService;
+import com.intland.eurocup.service.validation.ValidationStrategies;
 import com.intland.eurocup.service.validation.strategy.ValidationStrategy;
 
 
@@ -27,7 +28,7 @@ public class DefaultRedeemService implements RedeemService {
 	private VoucherRepository repository;
 	
 	@Autowired
-	private ValidationStrategy validationService;
+	private ValidationStrategies validationService;
 	
 	@Autowired
 	private PersistentService persistantService;

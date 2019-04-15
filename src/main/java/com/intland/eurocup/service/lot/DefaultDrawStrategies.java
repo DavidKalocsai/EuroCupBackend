@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.intland.eurocup.common.model.Territory;
 import com.intland.eurocup.model.Voucher;
@@ -13,6 +14,7 @@ import com.intland.eurocup.service.lot.strategy.DrawStrategy;
 /*
  * It is used to access all implemented Draw Strategy.
  */
+@Service
 public class DefaultDrawStrategies implements DrawStrategies {
 	final Map<Territory, DrawStrategy> drawStrategies = new HashMap<>();
 	

@@ -1,5 +1,7 @@
 package com.intland.eurocup.jms.adapter.converter;
 
+import org.springframework.stereotype.Service;
+
 import com.intland.eurocup.common.jms.model.MessageFromBackend;
 import com.intland.eurocup.common.jms.model.MessageFromFrontend;
 import com.intland.eurocup.common.model.LotResult;
@@ -9,6 +11,7 @@ import com.intland.eurocup.model.Voucher;
 /**
  * Converters to convert between data used by back end and JMS.
  */
+@Service
 public class DefaultMessageConverters implements MessageConverters {
 
 	@Override
