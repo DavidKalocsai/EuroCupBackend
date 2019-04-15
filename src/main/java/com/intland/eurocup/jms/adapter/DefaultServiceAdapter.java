@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.intland.eurocup.common.jms.model.MessageFromBackend;
 import com.intland.eurocup.common.jms.model.MessageFromFrontend;
 import com.intland.eurocup.common.model.LotResult;
+import com.intland.eurocup.jms.adapter.converter.MessageConverters;
 import com.intland.eurocup.model.LotStatus;
 import com.intland.eurocup.model.Voucher;
 import com.intland.eurocup.service.RedeemService;

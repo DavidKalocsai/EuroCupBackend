@@ -1,4 +1,4 @@
-package com.intland.eurocup.jms.adapter;
+package com.intland.eurocup.jms.adapter.converter;
 
 import com.intland.eurocup.common.jms.model.MessageFromBackend;
 import com.intland.eurocup.common.jms.model.MessageFromFrontend;
