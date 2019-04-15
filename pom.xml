@@ -9,8 +9,8 @@
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
-	<name>easy-notes</name>
-	<description>Euro Cup Voucher Draw App Backend</description>
+	<name>voucher-backend</name>
+	<description>Backend of Euro Cup Voucher Draw App</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

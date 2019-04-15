@@ -21,7 +21,7 @@ public class DefaultLotService implements LotService {
 	@Override
 	public LotStatus lot(final Voucher voucher) {
 		drawStrategies.draw(voucher);
-		Voucher persistedVoucher = persistentService.update(voucher);
+		Voucher persistedVoucher = persistentService.save(voucher);
 		return persistedVoucher.getLotStatus();
 	}
 }
