@@ -2,9 +2,12 @@ package com.intland.eurocup.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.intland.eurocup.jms.DefaultJmsService;
 import com.intland.eurocup.model.LotStatus;
 import com.intland.eurocup.model.Voucher;
 import com.intland.eurocup.repository.VoucherRepository;
@@ -18,6 +21,8 @@ import com.intland.eurocup.service.validation.strategy.ValidationStrategy;
  */
 @Service
 public class DefaultRedeemService implements RedeemService {
+	private Logger logger = LoggerFactory.getLogger(DefaultRedeemService.class);
+	
 	@Autowired
 	private VoucherRepository repository;
 	
@@ -42,6 +47,7 @@ public class DefaultRedeemService implements RedeemService {
 			validationService.validate(voucher);
 			persistedVoucher = persistantService.save(voucher);
 		}	
+		logger.info("Voucher persisted: " + persistedVoucher);
 		return persistedVoucher;
 	}
 	

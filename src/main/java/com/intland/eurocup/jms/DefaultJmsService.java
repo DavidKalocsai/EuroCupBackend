@@ -1,5 +1,7 @@
 package com.intland.eurocup.jms;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.annotation.JmsListener;
@@ -15,6 +17,8 @@ import com.intland.eurocup.jms.adapter.ServiceAdapter;
  */
 @Component
 public class DefaultJmsService implements JmsService {
+	private Logger logger = LoggerFactory.getLogger(DefaultJmsService.class);
+	
 	@Value("${jms.queue.to.ui.name}")
 	private String outGoingQueueName;
 	
@@ -27,13 +31,14 @@ public class DefaultJmsService implements JmsService {
 	@Override
 	@JmsListener(destination = "${jms.queue.from.ui.name}")
     public void receiveMessage(final MessageFromFrontend message) {
-        System.out.println("Received from UI <" + message + ">");
+        logger.info("Received from UI <" + message + ">");
         final MessageFromBackend backendMesage = redeemService.redeem(message);
         send(backendMesage);
     }
 	
 	@Override
 	public void send(final MessageFromBackend message) {
-    	jmsTemplate.convertAndSend(outGoingQueueName, message);
+		logger.info("Sent to UI <" + message + ">");
+		jmsTemplate.convertAndSend(outGoingQueueName, message);
 	}
 }

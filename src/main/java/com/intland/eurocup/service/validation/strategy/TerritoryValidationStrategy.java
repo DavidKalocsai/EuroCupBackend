@@ -1,5 +1,7 @@
 package com.intland.eurocup.service.validation.strategy;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +16,14 @@ import com.intland.eurocup.service.lot.strategy.DrawStrategy;
  */
 @Service
 public class TerritoryValidationStrategy implements ValidationStrategy {
+	private Logger logger = LoggerFactory.getLogger(TerritoryValidationStrategy.class);
 	
 	@Autowired
 	private DrawStrategies drawStrategies;
 	
 	@Override
 	public void validate(final Voucher voucher) {
+		logger.info("Territory validation: " + voucher);
 		if (noStrategyFoundForTerritory(voucher)) {
 			throw new UnsupportedTerritoryException();
 		}

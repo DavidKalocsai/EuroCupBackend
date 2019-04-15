@@ -25,7 +25,6 @@ public class DefaultMessageConverters implements MessageConverters {
 		final MessageFromBackend backendMessage = new MessageFromBackend();
 		backendMessage.setRequestId(requestId);
 		backendMessage.setLotResult(lotResult);
-		System.out.println("Sending back to UI <" + backendMessage + ">");
 		return backendMessage;
 	}
 

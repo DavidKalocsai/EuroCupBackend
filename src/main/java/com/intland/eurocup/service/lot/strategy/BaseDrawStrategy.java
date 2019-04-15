@@ -1,16 +1,21 @@
 package com.intland.eurocup.service.lot.strategy;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.intland.eurocup.common.model.Territory;
 import com.intland.eurocup.model.LotStatus;
 import com.intland.eurocup.model.Voucher;
 import com.intland.eurocup.repository.VoucherRepository;
+import com.intland.eurocup.service.DefaultRedeemService;
 
 /**
- * Draw strategy for Hungary.
+ * Base Draw strategy.
  */
 public abstract class BaseDrawStrategy implements DrawStrategy {
+	private Logger logger = LoggerFactory.getLogger(BaseDrawStrategy.class);
+	
 	private final int allTimePrizeLimit;
 	private final int dailyPrizeLimit;
 	private final Long winningSequence;
@@ -26,10 +31,12 @@ public abstract class BaseDrawStrategy implements DrawStrategy {
 
 	@Override
 	public void draw(final Voucher voucher) {
+		logger.info("Before draw! Voucher: " + voucher);
 		if (isDrawRequired(voucher)) {
 			proceedWithDraw(voucher);
 		}
 		setAsLoserIfLotStatusNotSet(voucher);
+		logger.info("After draw! Voucher: " + voucher);
 	}
 
 	private boolean isDrawRequired(final Voucher voucher) {
