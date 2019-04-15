@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import com.intland.eurocup.model.Voucher;
 import com.intland.eurocup.service.validation.strategy.ValidationStrategy;
 
+/**
+ * Collects all {@link ValidationStrategy} and calls each one-by-one to validate {@link Voucher} when validate called uppon. 
+ */
 @Service
 public class ValidationStrategiesImpl implements ValidationStrategies {
 	final List<ValidationStrategy> validationStrategies = new ArrayList<>();

@@ -1,10 +1,13 @@
 package com.intland.eurocup.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.intland.eurocup.model.LotStatus;
 import com.intland.eurocup.model.Voucher;
+import com.intland.eurocup.repository.VoucherRepository;
 import com.intland.eurocup.service.lot.LotService;
 import com.intland.eurocup.service.persist.PersistentService;
 import com.intland.eurocup.service.validation.strategy.ValidationStrategy;
@@ -16,6 +19,9 @@ import com.intland.eurocup.service.validation.strategy.ValidationStrategy;
 @Service
 public class DefaultRedeemService implements RedeemService {
 	@Autowired
+	private VoucherRepository repository;
+	
+	@Autowired
 	private ValidationStrategy validationService;
 	
 	@Autowired
@@ -26,8 +32,21 @@ public class DefaultRedeemService implements RedeemService {
 	
 	@Override
 	public LotStatus redeem(final Voucher voucher) {
-		validationService.validate(voucher);
-		final Voucher persistedVoucher = persistantService.save(voucher);
+		final Voucher persistedVoucher = persistIfAbsent(voucher);		
 		return lotService.lot(persistedVoucher);
+	}
+	
+	private Voucher persistIfAbsent(final Voucher voucher) {
+		Voucher persistedVoucher = tryToRetriveFromDB(voucher);
+		if (persistedVoucher != null) {
+			validationService.validate(voucher);
+			persistedVoucher = persistantService.save(voucher);
+		}	
+		return persistedVoucher;
+	}
+	
+	private Voucher tryToRetriveFromDB(final Voucher voucher) {
+		final List<Voucher> vouchers =  repository.findByEmailAndVoucherAndTerritory(voucher.getEmail(), voucher.getCode(), voucher.getTerritory().toString());
+		return vouchers.isEmpty() ? null : vouchers.get(0);
 	}
 }

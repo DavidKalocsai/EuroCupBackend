@@ -7,17 +7,16 @@ import org.springframework.stereotype.Service;
 
 import com.intland.eurocup.model.Voucher;
 import com.intland.eurocup.repository.VoucherRepository;
-import com.intland.eurocup.service.validation.VoucherFinderService;
 import com.intland.eurocup.service.validation.exception.VoucherAlreadyInUseException;
 
+/**
+ * Validates voucher code. Checks if it is previously used. (Validation only runs if voucher is not found previously in DB).  
+ */
 @Service
 public class VoucherValidationStrategy  implements ValidationStrategy {
 	
 	@Autowired
 	private VoucherRepository repository;
-	
-	@Autowired
-	VoucherFinderService voucherFinderService;
 	
 	@Override
 	public void validate(final Voucher voucher) {
@@ -27,11 +26,7 @@ public class VoucherValidationStrategy  implements ValidationStrategy {
 	}
 
 	private boolean isVoucherCodeUsedByOtherVoucher(final Voucher voucher) {
-		return voucherFinderService.isVoucherNotPersisted(voucher) && isVoucherUsed(voucher);
-	}
-	
-	private boolean isVoucherUsed(final Voucher voucher) {
-		final List<Voucher> vouchers =  repository.findByVoucher(voucher.getVoucher());
+		final List<Voucher> vouchers =  repository.findByVoucher(voucher.getCode());
 		return vouchers.size() > 0;
 	}
 }

@@ -7,17 +7,16 @@ import org.springframework.stereotype.Service;
 
 import com.intland.eurocup.model.Voucher;
 import com.intland.eurocup.repository.VoucherRepository;
-import com.intland.eurocup.service.validation.VoucherFinderService;
 import com.intland.eurocup.service.validation.exception.EmailAlreadyInUseException;
 
+/**
+ * Validates Email. Checks if it is previously used. (Validation only runs if voucher is not found previously in DB).  
+ */
 @Service
 public class EmailValidationStrategy implements ValidationStrategy {
 
 	@Autowired
 	private VoucherRepository repository;
-
-	@Autowired
-	VoucherFinderService voucherFinderService;
 
 	@Override
 	public void validate(final Voucher voucher) {
@@ -27,10 +26,6 @@ public class EmailValidationStrategy implements ValidationStrategy {
 	}
 
 	private boolean isEmailUsedByOtherVoucher(final Voucher voucher) {
-		return voucherFinderService.isVoucherNotPersisted(voucher) && isEmailUsed(voucher);
-	}
-
-	private boolean isEmailUsed(final Voucher voucher) {
 		final List<Voucher> vouchers = repository.findByEmail(voucher.getEmail());
 		return vouchers.size() > 0;
 	}
