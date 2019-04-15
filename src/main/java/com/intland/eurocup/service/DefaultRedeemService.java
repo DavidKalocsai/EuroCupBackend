@@ -44,7 +44,7 @@ public class DefaultRedeemService implements RedeemService {
 	
 	private Voucher persistIfAbsent(final Voucher voucher) {
 		Voucher persistedVoucher = tryToRetriveFromDB(voucher);
-		if (persistedVoucher != null) {
+		if (persistedVoucher == null) {
 			validationService.validate(voucher);
 			persistedVoucher = persistantService.save(voucher);
 		}	
