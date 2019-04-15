@@ -42,15 +42,15 @@ public abstract class BaseDrawStrategy implements DrawStrategy {
 	}
 
 	private boolean allTimeLimitNotReached(final Voucher voucher) {
-		return voucherRepository.countWinners(voucher.getTerritory()) < allTimePrizeLimit;
+		return voucherRepository.countWinners(voucher.getTerritory().getDbCode()) < allTimePrizeLimit;
 	}
 
 	private boolean dailyLimitNotReached(final Voucher voucher) {
-		return voucherRepository.countWinnersOnDate(voucher.getCreatedAt(), voucher.getTerritory()) < dailyPrizeLimit;
+		return voucherRepository.countWinnersOnDate(voucher.getCreatedAt(), voucher.getTerritory().getDbCode()) < dailyPrizeLimit;
 	}
 	
 	private void proceedWithDraw(final Voucher voucher) {
-		final Long voucherDailySequenceNumber = voucherRepository.countVouchersOnDate(voucher.getCreatedAt(), voucher.getId(), voucher.getTerritory());
+		final Long voucherDailySequenceNumber = voucherRepository.countVouchersOnDate(voucher.getCreatedAt(), voucher.getId(), voucher.getTerritory().getDbCode());
 		if (voucherDailySequenceNumber % winningSequence == 0) {
 			voucher.setLotStatus(LotStatus.WINNER);
 		}

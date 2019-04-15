@@ -46,7 +46,7 @@ public class Voucher {
     @Column(unique = true)
     private String email;
     
-    @NotBlank
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Territory territory;
     

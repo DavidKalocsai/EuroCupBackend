@@ -46,7 +46,7 @@ public class DefaultRedeemService implements RedeemService {
 	}
 	
 	private Voucher tryToRetriveFromDB(final Voucher voucher) {
-		final List<Voucher> vouchers =  repository.findByEmailAndVoucherAndTerritory(voucher.getEmail(), voucher.getCode(), voucher.getTerritory().toString());
+		final List<Voucher> vouchers =  repository.findByEmailAndCodeAndTerritory(voucher.getEmail(), voucher.getCode(), voucher.getTerritory());
 		return vouchers.isEmpty() ? null : vouchers.get(0);
 	}
 }

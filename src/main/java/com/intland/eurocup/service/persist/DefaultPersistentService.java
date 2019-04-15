@@ -12,7 +12,7 @@ import com.intland.eurocup.repository.VoucherRepository;
  * Interface to persist {@link Voucher}. 
  */
 @Service
-public class DefaultPersistentService implements PersistentService{	
+public class DefaultPersistentService implements PersistentService {	
 	
 	@Autowired
 	private VoucherRepository repository;
@@ -23,7 +23,7 @@ public class DefaultPersistentService implements PersistentService{
 	}
 	
 	private Voucher tryRetrieveFromDB(final Voucher voucher) {
-		final List<Voucher> vouchers =  repository.findByEmailAndVoucherAndTerritory(voucher.getEmail(), voucher.getCode(), voucher.getTerritory().toString());
+		final List<Voucher> vouchers =  repository.findByEmailAndCodeAndTerritory(voucher.getEmail(), voucher.getCode(), voucher.getTerritory());
 		return vouchers.isEmpty() ? null : vouchers.get(0);
 	}
 	

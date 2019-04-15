@@ -26,7 +26,7 @@ public class VoucherValidationStrategy  implements ValidationStrategy {
 	}
 
 	private boolean isVoucherCodeUsedByOtherVoucher(final Voucher voucher) {
-		final List<Voucher> vouchers =  repository.findByVoucher(voucher.getCode());
+		final List<Voucher> vouchers =  repository.findByCode(voucher.getCode());
 		return vouchers.size() > 0;
 	}
 }
