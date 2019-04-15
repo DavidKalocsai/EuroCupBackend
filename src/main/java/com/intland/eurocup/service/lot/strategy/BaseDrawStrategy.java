@@ -14,15 +14,15 @@ public abstract class BaseDrawStrategy implements DrawStrategy {
 	private final int allTimePrizeLimit;
 	private final int dailyPrizeLimit;
 	private final Long winningSequence;
+
+	@Autowired
+	private VoucherRepository voucherRepository;
 	
 	public BaseDrawStrategy(final int allTimePrizeLimit, final int dailyPrizeLimit, final Long winningSequence) {
 		this.allTimePrizeLimit = allTimePrizeLimit;
 		this.dailyPrizeLimit = dailyPrizeLimit;
 		this.winningSequence = winningSequence;
 	}
-
-	@Autowired
-	private VoucherRepository voucherRepository;
 
 	@Override
 	public void draw(final Voucher voucher) {
@@ -33,7 +33,7 @@ public abstract class BaseDrawStrategy implements DrawStrategy {
 	}
 
 	private boolean isDrawRequired(final Voucher voucher) {
-		return voucher != null && voucherNotYetDrawn(voucher) && allTimeLimitNotReached(voucher)
+		return voucherNotYetDrawn(voucher) && allTimeLimitNotReached(voucher)
 				&& dailyLimitNotReached(voucher);
 	}
 
@@ -57,7 +57,7 @@ public abstract class BaseDrawStrategy implements DrawStrategy {
 	}	
 	
 	private void setAsLoserIfLotStatusNotSet(final Voucher voucher) {
-		if (voucherNotYetDrawn(voucher)) {
+		if (voucher != null && voucherNotYetDrawn(voucher)) {
 			voucher.setLotStatus(LotStatus.LOSER);
 		}
 	}
