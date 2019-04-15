@@ -20,6 +20,7 @@ public class DefaultMessageConverters implements MessageConverters {
 		voucher.setEmail(jmsMessage.getEmail());
 		voucher.setCode(jmsMessage.getVoucher());
 		voucher.setTerritory(jmsMessage.getTerritory());
+		voucher.setLotStatus(LotStatus.NO_DRAW);
 		return voucher;
 	}
 
