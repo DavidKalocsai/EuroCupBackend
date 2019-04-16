@@ -1,6 +1,5 @@
 package com.intland.eurocup.repository;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -26,8 +25,8 @@ public interface VoucherRepository extends JpaRepository<Voucher, Long> {
 	Long countWinners(@Param("territory") String territory);
 	
 	@Query(value = "SELECT COUNT(id) FROM Voucher v WHERE v.lot_status = 'WINNER' AND v.created = :creationDate AND v.territory = :territory", nativeQuery = true)
-    Long countWinnersOnDate(@Param("creationDate") Date creationDate, @Param("territory") String territory);
+    Long countWinnersOnDate(@Param("creationDate") String creationDate, @Param("territory") String territory);
 
 	@Query(value = "SELECT COUNT(id) FROM Voucher v WHERE v.created = :creationDate AND v.id <= :currentId AND v.territory = :territory", nativeQuery = true)
-	Long countVouchersOnDate(@Param("creationDate") Date created, @Param("currentId") Long currentId, @Param("territory") String territory);
+	Long countVouchersOnDate(@Param("creationDate") String created, @Param("currentId") Long currentId, @Param("territory") String territory);
 }

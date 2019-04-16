@@ -109,7 +109,7 @@ public class VoucherRepositroyIT {
 
 		// when
 		final Voucher voucher = repository.save(VoucherTestModel.creaeteVoucher(Territory.GER, LotStatus.WINNER));
-		final Long voucherDailySequenceNumber = repository.countVouchersOnDate(getTodayDate(), voucher.getId(),
+		final Long voucherDailySequenceNumber = repository.countVouchersOnDate(voucher.getCreationDate(), voucher.getId(),
 				Territory.GER.getDbCode());
 		
 		// then
@@ -129,16 +129,8 @@ public class VoucherRepositroyIT {
 		repository.save(VoucherTestModel.creaeteVoucher(Territory.GER, LotStatus.LOSER));
 	}
 
-	private Date getTodayDate() {
-		Date date = null;
-		final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		DateTimeFormatter dateTimeFormat = DateTimeFormat.forPattern("yyyy-MM-dd");
-
-		try {
-			date = dateFormat.parse(DateTime.now().toString(dateTimeFormat));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		return date;
+	private String getTodayDate() {
+		final DateTimeFormatter dateTimeFormat = DateTimeFormat.forPattern("yyyy-MM-dd");
+		return DateTime.now().toString(dateTimeFormat);
 	}
 }

@@ -1,5 +1,7 @@
 package com.intland.eurocup.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -33,7 +36,10 @@ import lombok.ToString;
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt"}, allowGetters = true)
 @Getter @Setter @ToString
-public class Voucher {	
+public class Voucher {
+	@Transient
+	final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
+	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -58,4 +64,8 @@ public class Voucher {
     @Column(name = "lot_status", nullable = false)
     @Enumerated(EnumType.STRING)
     private LotStatus lotStatus;
+    
+    public String getCreationDate() {
+    	return dateFormat.format(createdAt);  
+    }
 }
